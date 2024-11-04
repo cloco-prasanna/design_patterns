@@ -2,16 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 class ClocoLogger {
-  static instance = null;
-
   constructor(filePath) {
-    if (ClocoLogger.instance) {
-      return ClocoLogger.instance;
-    }
-
     this.filePath = filePath;
     this.enterLog();
-    ClocoLogger.instance = this;
+  }
+
+  static createLogger(filePath) {
+    return new ClocoLogger(filePath);
   }
 
   enterLog() {
@@ -30,12 +27,12 @@ class ClocoLogger {
   }
 }
 
-const clocoLogger1 = new ClocoLogger("logs/singleton.log");
-clocoLogger1.log("Singleton practice start");
-clocoLogger1.log("Log from logger 1 ");
+const clocoNepalLogger = ClocoLogger.createLogger("logs/cloco-np.log");
+clocoNepalLogger.log("Factory Method practice start");
+clocoNepalLogger.log("Log in cloco np");
 
-const clocoLogger2 = new ClocoLogger("logs/singleton.log");
-clocoLogger2.log("Log from logger 2");
-clocoLogger1.log("Singleton Practice End");
+const clocoJapanLogger = ClocoLogger.createLogger("logs/cloco-jp.log");
+clocoJapanLogger.log("-------Initialized-cloco-japan-Log------");
+clocoJapanLogger.log("Log in cloco jp");
 
-console.log(clocoLogger1 === clocoLogger2); // true
+console.log(clocoNepalLogger !== clocoJapanLogger); // true
